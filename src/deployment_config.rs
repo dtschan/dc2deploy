@@ -70,8 +70,8 @@ impl Into<Deployment> for DeploymentConfig {
             spec.paused = Some(true);
             eprintln!(
                 "WARNING: deployment {:?} (Namespace {:?}) has been set to paused because there are no triggers in the DeploymentConfig",
-                metadata.name.as_deref().unwrap(),
-                metadata.namespace.as_deref().unwrap()
+                metadata.name.as_deref().unwrap_or_default("Unknown"),
+                metadata.namespace.as_deref().unwrap_or_default("Unknown")
             );
         }
 
