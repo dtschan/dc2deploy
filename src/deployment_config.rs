@@ -68,7 +68,11 @@ impl Into<Deployment> for DeploymentConfig {
         } else {
             // if triggers.as_ref().map_or(true, |t| t.is_empty()) {
             spec.paused = Some(true);
-            eprintln!("WARNING: deployment has been set to paused because there are no triggers in the DeploymentConfig")
+            eprintln!(
+                "WARNING: deployment {:?} (Namespace {:?}) has been set to paused because there are no triggers in the DeploymentConfig",
+                metadata.name.as_deref().unwrap_or_default("Unknown"),
+                metadata.namespace.as_deref().unwrap_or_default("Unknown")
+            );
         }
 
         // Delete last-applied annoation as it is no longer correct after the conversion
