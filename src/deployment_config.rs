@@ -81,6 +81,12 @@ impl Into<Deployment> for DeploymentConfig {
             .as_mut()
             .map(|a| a.remove("kubectl.kubernetes.io/last-applied-configuration"));
 
+        // Nullify other, unneeded metadata
+        metadata.creation_timestamp = None;
+        metadata.generation = None;
+        metadata.resource_version = None;
+        metadata.uid = None; 
+
         // Images are optional in DeploymentConfig buts not in Deployments.
         // Replace emptys image with " ". Used when images are set with image change triggers.
         // iterate over all containers
